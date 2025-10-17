@@ -3,7 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Seán Hogan - Oracle Database Administrator",
+  title: "Seán Hogan - Portfolio",
   description: "Portfolio of Seán Hogan, Oracle Database Administrator with 5 years of experience",
 };
 

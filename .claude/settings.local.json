@@ -4,7 +4,9 @@
       "Bash(npx create-next-app:*)",
       "Bash(npm install)",
       "Bash(npm run dev:*)",
-      "Bash(timeout 10 bash:*)"
+      "Bash(timeout 10 bash:*)",
+      "WebFetch(domain:www.seanhogan.me)",
+      "WebFetch(domain:seanhogan.me)"
     ],
     "deny": [],
     "ask": []
