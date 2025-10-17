@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <body className="antialiased">
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-TM258046TG"
@@ -28,8 +28,6 @@ export default function RootLayout({
             gtag('config', 'G-TM258046TG');
           `}
         </Script>
-      </head>
-      <body className="antialiased">
         {children}
       </body>
     </html>
