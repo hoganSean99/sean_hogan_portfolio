@@ -139,7 +139,7 @@ export default function About() {
             >
               <div className="space-y-5 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
                 <p>
-                  I'm Sean, an Oracle Database Administrator who has spent the last{" "}
+                  I&apos;m Sean, an Oracle Database Administrator who has spent the last{" "}
                   <span className="font-semibold text-indigo-500 dark:text-indigo-300">5+ years</span> shepherding
                   mission-critical data platforms. My comfort zone sits where solid processes meet human-first
                   collaboration, pairing clear runbooks with open communication so teams always know what is happening
