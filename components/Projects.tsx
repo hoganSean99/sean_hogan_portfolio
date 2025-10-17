@@ -8,6 +8,7 @@ import MagneticButton from "./MagneticButton";
 const projects = [
   {
     title: "BabySteps - iOS Baby Tracking App",
+    category: "Personal",
     description:
       "A fully native SwiftUI experience for tracking growth, milestones, and daily activities. Features CloudKit family sharing, Apple Sign In, and a zero-dependency architecture built for maintainability.",
     technologies: ["Swift", "SwiftUI", "CloudKit", "Core Data", "iOS"],
@@ -21,6 +22,7 @@ const projects = [
   },
   {
     title: "AI-Powered Server Monitoring via Telegram",
+    category: "Personal",
     description:
       "Self-hosted Ubuntu infrastructure managed through natural language conversations. An N8N orchestrated workflow uses OpenAI tooling to interpret intents, execute shell commands, and stream results back through Telegram.",
     technologies: ["Ubuntu Server", "N8N", "OpenAI", "Telegram Bot", "Bash"],
@@ -33,6 +35,7 @@ const projects = [
   },
   {
     title: "EduManage - Intelligent School Platform",
+    category: "Personal",
     description:
       "Next.js 15 platform for school operations with Skye, an AI assistant that supports exam creation, attendance, analytics, and role-based workflows. Built with PostgreSQL, Prisma, and hardened authentication.",
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth"],

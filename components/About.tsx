@@ -146,7 +146,7 @@ export default function About() {
                   and why.
                 </p>
                 <p>
-                  Day to day you'll find me orchestrating backup and recovery strategies, tuning SQL with AWR and ASH
+                  Day to day you&apos;ll find me orchestrating backup and recovery strategies, tuning SQL with AWR and ASH
                   insights, and hardening environments using Linux, Bash, and Python automation. I love closing feedback
                   loops quickly: observe, tune, document, and share.
                 </p>
