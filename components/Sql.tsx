@@ -3,6 +3,7 @@
 const KEYWORDS = new Set([
   "SELECT", "FROM", "WHERE", "AND", "OR", "ORDER", "BY", "DESC", "ASC",
   "INSERT", "INTO", "VALUES", "DESCRIBE", "COMMIT", "NOT", "NULL", "LIMIT",
+  "DROP", "TABLE", "DELETE", "UPDATE", "TRUNCATE", "SET", "HELP", "AS", "JOIN", "ON",
 ]);
 
 const TOKEN = /(--.*$)|('(?:[^']|'')*'?)|(\b\d+\b)|([A-Za-z_][A-Za-z0-9_]*)|(\s+)|([^\sA-Za-z0-9_']+)/gm;
@@ -18,7 +19,7 @@ export function highlight(source: string) {
     if (comment) cls = "tok-comment";
     else if (str) cls = "tok-string";
     else if (num) cls = "tok-number";
-    else if (word && KEYWORDS.has(word)) cls = "tok-keyword";
+    else if (word && KEYWORDS.has(word.toUpperCase())) cls = "tok-keyword";
     parts.push(
       cls ? (
         <span key={i++} className={cls}>

@@ -185,9 +185,21 @@ code {
 .hero-text {
   animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
+.hero-id {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-photo {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--paper), 0 0 0 6px var(--gold);
+}
 .hero-role {
   color: var(--muted);
-  margin-bottom: 1rem;
+  line-height: 1.45;
 }
 .hero-name {
   display: flex;
@@ -373,7 +385,7 @@ code {
   font-family: var(--mono);
   font-size: 0.78rem;
   line-height: 1.75;
-  min-height: 25rem;
+  min-height: 23rem;
 }
 @media (min-width: 480px) {
   .console-body {
@@ -433,13 +445,105 @@ code {
 .record dd {
   color: var(--deep-ink);
 }
-.record-photo {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 50%;
-  margin-top: 0.35rem;
-  outline: 2px solid var(--tok-keyword);
-  outline-offset: 2px;
+.result-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  border-top: 1px dashed var(--deep-line);
+  border-bottom: 1px dashed var(--deep-line);
+}
+.result-table th {
+  text-align: left;
+  font-weight: 400;
+  color: var(--deep-muted);
+  padding: 0.5rem 1rem 0.25rem 0;
+}
+.result-table td {
+  padding: 0.15rem 1rem 0.15rem 0;
+  vertical-align: top;
+}
+.result-table tbody tr:last-child td {
+  padding-bottom: 0.5rem;
+}
+.console-error {
+  margin-top: 0.9rem;
+}
+.console-error-code {
+  color: var(--tok-number);
+  font-weight: 600;
+}
+.console-input {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--deep-line);
+}
+.console-input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  color: var(--deep-ink);
+  font-family: var(--mono);
+  font-size: 16px;
+  padding: 0.35rem 0;
+  caret-color: var(--tok-keyword);
+}
+@media (min-width: 480px) {
+  .console-input input {
+    font-size: 0.8125rem;
+  }
+}
+.console-input input::placeholder {
+  color: var(--deep-muted);
+  opacity: 0.7;
+}
+.console-input input:focus-visible {
+  outline: none;
+}
+.console-input:focus-within {
+  border-top-color: var(--tok-keyword);
+}
+.console-input button {
+  font-family: var(--font);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--deep);
+  background: var(--tok-keyword);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  cursor: pointer;
+}
+.console-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.85rem 1.1rem 1rem;
+  background: var(--deep-2);
+  border-top: 1px solid var(--deep-line);
+}
+.console-presets button {
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--deep-ink);
+  background: transparent;
+  border: 1px solid var(--deep-line);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.console-presets button:hover {
+  background: var(--deep-line);
+}
+.console-presets button.is-active {
+  background: var(--tok-keyword);
+  border-color: var(--tok-keyword);
+  color: var(--deep);
 }
 @media (max-width: 420px) {
   .record > div {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Query } from "@/components/Sql";
 import SqlConsole from "@/components/SqlConsole";
 import { apps, education, life, otherBuilds, profile, skills, work } from "@/lib/content";
@@ -72,9 +73,22 @@ export default function Home() {
       <main id="main">
         <section id="top" className="wrap hero" aria-label="Introduction">
           <div className="hero-text">
-            <p className="hero-role">
-              {profile.role}, {profile.location}
-            </p>
+            <div className="hero-id">
+              <Image
+                src="/sean.webp"
+                alt="Seán Hogan"
+                width={433}
+                height={433}
+                priority
+                sizes="96px"
+                className="hero-photo"
+              />
+              <p className="hero-role">
+                {profile.role}
+                <br />
+                {profile.location}
+              </p>
+            </div>
             <h1 className="hero-name">
               <span>Seán</span>
               <span>Hogan</span>
