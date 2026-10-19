@@ -26,7 +26,7 @@ export function ResultView({ result }: { result: QueryResult }) {
         (asRecord ? (
           <dl className="record">
             {columns.map((c, i) => (
-              <div key={c}>
+              <div key={i}>
                 <dt>{c}</dt>
                 <dd>{rows[0][i]}</dd>
               </div>
@@ -37,8 +37,8 @@ export function ResultView({ result }: { result: QueryResult }) {
             <table className="result-table">
               <thead>
                 <tr>
-                  {columns.map((c) => (
-                    <th key={c} scope="col">
+                  {columns.map((c, i) => (
+                    <th key={i} scope="col">
                       {c}
                     </th>
                   ))}

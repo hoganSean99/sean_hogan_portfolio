@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { QueryResult, runQuery, TABLES } from "@/lib/sql-engine";
+import { JOIN_EXAMPLE, QueryResult, runQuery, TABLES } from "@/lib/sql-engine";
 import { highlight } from "./Sql";
 import { ResultView } from "./SqlResult";
 
@@ -15,8 +15,10 @@ type Entry = { id: number; query: string; result?: QueryResult; note?: string };
 
 const BANNER = [
   "Connected to seanhogan.me as GUEST (read-only).",
-  `Tables: ${TABLES.map((t) => t.name).join(", ")}`,
-  "Type HELP for columns, DESCRIBE <table> for detail, CLEAR to wipe the screen, EXIT to close.",
+  `Tables: ${TABLES.filter((t) => !t.hidden).map((t) => t.name).join(", ")}`,
+  "Tables are linked with primary and foreign keys. SELECT * FROM user_constraints shows them all.",
+  `Try a join: ${JOIN_EXAMPLE}`,
+  "HELP lists columns, DESCRIBE <table> shows keys, CLEAR wipes the screen, EXIT closes.",
 ];
 
 export default function SqlTerminal() {
@@ -176,7 +178,7 @@ export default function SqlTerminal() {
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={onKeyDown}
-              placeholder="SELECT * FROM apps WHERE status = 'LIVE';"
+              placeholder="SELECT a.name, s.tech FROM apps a JOIN app_stack s ON a.app_id = s.app_id;"
               autoComplete="off"
               autoCapitalize="off"
               spellCheck={false}

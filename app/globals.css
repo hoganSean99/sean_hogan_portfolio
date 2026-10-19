@@ -1266,3 +1266,13 @@ code {
 .case-end-actions {
   margin-top: 2rem;
 }
+.console-chips .chip-join {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--tok-keyword);
+  border-color: color-mix(in srgb, var(--tok-keyword) 55%, transparent);
+}
+.console-chips .chip-join.is-active {
+  color: var(--deep);
+}

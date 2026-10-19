@@ -4,6 +4,7 @@ const KEYWORDS = new Set([
   "SELECT", "FROM", "WHERE", "AND", "OR", "ORDER", "BY", "DESC", "ASC",
   "INSERT", "INTO", "VALUES", "DESCRIBE", "COMMIT", "NOT", "NULL", "LIMIT",
   "DROP", "TABLE", "DELETE", "UPDATE", "TRUNCATE", "SET", "HELP", "AS", "JOIN", "ON",
+  "GROUP", "DISTINCT", "LEFT", "INNER", "OUTER", "IS", "LIKE", "COUNT", "FETCH", "FIRST", "ROWS", "ONLY", "IN",
 ]);
 
 const TOKEN = /(--.*$)|('(?:[^']|'')*'?)|(\b\d+\b)|([A-Za-z_][A-Za-z0-9_]*)|(\s+)|([^\sA-Za-z0-9_']+)/gm;

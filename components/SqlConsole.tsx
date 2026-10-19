@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
-import { QueryResult, runQuery, TABLES } from "@/lib/sql-engine";
+import { JOIN_EXAMPLE, QueryResult, runQuery, TABLES } from "@/lib/sql-engine";
 import { highlight } from "./Sql";
 import { ResultView } from "./SqlResult";
 import { openTerminal } from "./SqlTerminal";
@@ -152,17 +152,28 @@ export default function SqlConsole() {
 
       <div className="console-tables">
         <p id="sql-help" className="console-help">
-          Write your own query, or click a table. Try <code>DESCRIBE apps</code> to see its columns, or{" "}
-          <code>HELP</code> for everything.
+          Write your own query, or click a table. Joins work: tables are linked by keys, so try{" "}
+          <code>DESCRIBE app_stack</code> or <code>HELP</code> to see how.
         </p>
         <div className="console-chips" role="group" aria-label="Tables you can query">
-          {TABLES.map((t) => (
+          <button
+            type="button"
+            className={`chip-join${active === "join" ? " is-active" : ""}`}
+            aria-pressed={active === "join"}
+            onClick={() => {
+              setActive("join");
+              play(JOIN_EXAMPLE, true);
+            }}
+          >
+            Try a join
+          </button>
+          {TABLES.filter((t) => !t.hidden).map((t) => (
             <button
               key={t.name}
               type="button"
               className={active === t.name ? "is-active" : undefined}
               aria-pressed={active === t.name}
-              title={`${t.about}: ${t.columns.join(", ")}`}
+              title={`${t.about}: ${t.columns.map((c) => c.name).join(", ")}`}
               onClick={() => runTable(t.name)}
             >
               {t.name}
