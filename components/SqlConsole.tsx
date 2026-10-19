@@ -141,6 +141,7 @@ export default function SqlConsole() {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={onKeyDown}
           placeholder="SELECT name, status FROM apps;"
+          enterKeyHint="go"
           aria-describedby="sql-help"
           autoComplete="off"
           autoCapitalize="off"

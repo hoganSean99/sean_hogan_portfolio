@@ -644,6 +644,23 @@ code {
   box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
   overflow: hidden;
 }
+@media (max-width: 640px) {
+  .terminal {
+    width: calc(100vw - 1rem);
+    height: calc(var(--vv-height, 100dvh) - 1rem);
+    top: calc(var(--vv-top, 0px) + 0.5rem);
+    bottom: auto;
+    margin: 0 auto;
+    border-radius: 14px;
+  }
+  .terminal-log {
+    padding: 0.9rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+html:has(.terminal[open]) {
+  overflow: hidden;
+}
 .terminal::backdrop {
   background: rgba(8, 20, 15, 0.55);
   backdrop-filter: blur(4px);

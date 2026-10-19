@@ -48,8 +48,30 @@ export default function SqlTerminal() {
     const d = dialogRef.current;
     if (!d || d.open) return;
     d.showModal();
-    window.setTimeout(() => inputRef.current?.focus(), 30);
+    // Focus synchronously, inside the tap that opened the terminal:
+    // iOS only shows the keyboard for focus that happens during a user gesture.
+    inputRef.current?.focus({ preventScroll: true });
   };
+
+  // Keep the terminal inside the visible area when the on-screen keyboard opens.
+  // iOS overlays the keyboard on the page without resizing it, which would hide the input.
+  useEffect(() => {
+    const d = dialogRef.current;
+    const vv = window.visualViewport;
+    if (!d || !vv) return;
+    const fit = () => {
+      d.style.setProperty("--vv-height", `${vv.height}px`);
+      d.style.setProperty("--vv-top", `${vv.offsetTop}px`);
+      logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+    };
+  }, []);
   const close = () => dialogRef.current?.close();
 
   useEffect(() => {
@@ -178,7 +200,8 @@ export default function SqlTerminal() {
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={onKeyDown}
-              placeholder="SELECT a.name, s.tech FROM apps a JOIN app_stack s ON a.app_id = s.app_id;"
+              placeholder="Type SQL, or HELP"
+              enterKeyHint="go"
               autoComplete="off"
               autoCapitalize="off"
               spellCheck={false}
