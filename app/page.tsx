@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Query } from "@/components/Sql";
 import SqlConsole from "@/components/SqlConsole";
+import SqlTerminal from "@/components/SqlTerminal";
 import { apps, education, life, otherBuilds, profile, skills, work } from "@/lib/content";
 
 function Section({
@@ -255,6 +256,8 @@ export default function Home() {
         </p>
         <p>© {new Date().getFullYear()} Seán Hogan</p>
       </footer>
+
+      <SqlTerminal />
     </>
   );
 }
