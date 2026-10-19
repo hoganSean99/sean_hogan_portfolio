@@ -36,32 +36,59 @@ export const education = {
 
 export type AppStatus = "live" | "building";
 
+export type AppShot = { src: string; alt: string; width: number; height: number; kind: "phone" | "art" };
+
 export const apps: {
   name: string;
+  slug?: string;
   status: AppStatus;
+  tagline: string;
   description: string;
   stack: string[];
-  href?: string;
+  icon?: string;
+  appStore?: string;
+  website?: string;
+  shots?: AppShot[];
 }[] = [
   {
     name: "Quotely",
+    slug: "quotely",
     status: "live",
+    tagline: "Quotes and invoices for trades. Create. Send. Win.",
     description:
-      "Quotes and invoices for tradespeople and the self-employed. I built it first as a free alternative to a paid invoicing app for my brother, then released it for everyone on a subscription.",
-    stack: ["React Native", "Expo", "Subscriptions"],
-    // href: "https://apps.apple.com/...",
+      "A quoting and invoicing platform for tradespeople and small businesses, with an iOS app and a web dashboard. I built it first as a free alternative to a paid invoicing app for my brother, then grew it into a subscription product.",
+    stack: ["React Native", "Expo", "Next.js", "Supabase", "Stripe", "RevenueCat"],
+    icon: "/apps/quotely-icon.webp",
+    appStore: "https://apps.apple.com/ie/app/quotely-business-made-simple/id6784734762",
+    website: "https://www.quotely.ie",
+    shots: [
+      { src: "/apps/quotely-welcome.webp", alt: "Quotely welcome screen on iPhone", width: 474, height: 1024, kind: "phone" },
+      { src: "/apps/quotely-quote-2.webp", alt: "Sending a quote to a customer", width: 720, height: 850, kind: "art" },
+      { src: "/apps/quotely-analytics-3.webp", alt: "Quote performance and win rate analytics", width: 720, height: 910, kind: "art" },
+      { src: "/apps/quotely-calendar-4.webp", alt: "Calendar with automatic follow-ups", width: 720, height: 930, kind: "art" },
+    ],
   },
   {
     name: "Lost Paws",
+    slug: "lost-paws",
     status: "live",
+    tagline: "Find. Help. Reunite.",
     description:
       "Post a lost pet with a photo and a last-seen location, and people nearby get an alert. Found one? Post that too. Free for everyone, because lost pets need a faster way home.",
-    stack: ["React Native", "Expo", "Supabase"],
-    // href: "https://apps.apple.com/...",
+    stack: ["React Native", "Expo", "Supabase", "Edge Functions", "Push notifications"],
+    icon: "/apps/lostpaws-icon.webp",
+    appStore: "https://apps.apple.com/ie/app/lost-paws-find-my-pet/id6770572341",
+    website: "https://www.lostpaws.pet",
+    shots: [
+      { src: "/apps/lostpaws-main.webp", alt: "Lost Paws home screen: report lost pets, found pets and search nearby", width: 640, height: 1385, kind: "phone" },
+      { src: "/apps/lostpaws-explore.webp", alt: "Explore listings near you with filters", width: 640, height: 1385, kind: "phone" },
+      { src: "/apps/lostpaws-my-requests.webp", alt: "Manage your own listings", width: 640, height: 1385, kind: "phone" },
+    ],
   },
   {
     name: "PawRota",
     status: "building",
+    tagline: "Who fed the dog?",
     description:
       "Shared pet care for the whole household: who fed the dog, who walked her and whose turn it is next. Includes an AI vet scan.",
     stack: ["React Native", "Expo", "Supabase", "AI"],

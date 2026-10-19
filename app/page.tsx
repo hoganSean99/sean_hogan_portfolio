@@ -1,75 +1,14 @@
 import Image from "next/image";
-import { Query } from "@/components/Sql";
+import Link from "next/link";
+import { AppStoreButton, ExternalLink, Footer, Masthead, Section, Stack } from "@/components/Layout";
 import SqlConsole from "@/components/SqlConsole";
 import SqlTerminal from "@/components/SqlTerminal";
 import { apps, education, life, otherBuilds, profile, skills, work } from "@/lib/content";
 
-function Section({
-  id,
-  title,
-  query,
-  tone = "plain",
-  children,
-}: {
-  id: string;
-  title: string;
-  query: string;
-  tone?: "plain" | "band";
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={tone === "band" ? "band" : undefined}>
-      <section id={id} className="wrap section" aria-labelledby={`${id}-title`}>
-        <div className="section-head">
-          <h2 id={`${id}-title`} className="section-title">
-            {title}
-          </h2>
-          <Query>{query}</Query>
-        </div>
-        <div className="section-body">{children}</div>
-      </section>
-    </div>
-  );
-}
-
-function Stack({ items }: { items: string[] }) {
-  return (
-    <ul className="stack" aria-label="Built with">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  );
-}
-
-function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
-  );
-}
-
 export default function Home() {
   return (
     <>
-      <a href="#main" className="skip">
-        Skip to content
-      </a>
-
-      <header className="masthead">
-        <div className="wrap masthead-inner">
-          <a href="#top" className="brand">
-            Seán Hogan
-          </a>
-          <nav aria-label="Sections">
-            <a href="#work">Work</a>
-            <a href="#apps">Apps</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <Masthead />
 
       <main id="main">
         <section id="top" className="wrap hero" aria-label="Introduction">
@@ -156,15 +95,52 @@ export default function Home() {
             {apps.map((app) => (
               <li key={app.name} className="app">
                 <div className="app-head">
-                  <h3 className="app-name">
-                    {app.href ? <ExternalLink href={app.href}>{app.name}</ExternalLink> : app.name}
-                  </h3>
+                  <div className="app-title">
+                    {app.icon ? (
+                      <Image src={app.icon} alt="" width={64} height={64} className="app-icon" />
+                    ) : (
+                      <span className="app-icon app-icon-placeholder" aria-hidden="true">
+                        {app.name.slice(0, 1)}
+                      </span>
+                    )}
+                    <div>
+                      <h3 className="app-name">
+                        {app.slug ? <Link href={`/apps/${app.slug}`}>{app.name}</Link> : app.name}
+                      </h3>
+                      <p className="app-tagline">{app.tagline}</p>
+                    </div>
+                  </div>
                   <span className={`status status-${app.status}`}>
                     {app.status === "live" ? "Live on the App Store" : "In development"}
                   </span>
                 </div>
                 <p className="app-desc">{app.description}</p>
+                {app.shots && (
+                  <ul className="shots" aria-label={`${app.name} screenshots`}>
+                    {app.shots.map((shot) => (
+                      <li key={shot.src} className={`shot shot-${shot.kind}`}>
+                        <Image
+                          src={shot.src}
+                          alt={shot.alt}
+                          width={shot.width}
+                          height={shot.height}
+                          sizes="(max-width: 760px) 45vw, 200px"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <Stack items={app.stack} />
+                {(app.slug || app.appStore) && (
+                  <div className="app-actions">
+                    {app.slug && (
+                      <Link className="button button-light" href={`/apps/${app.slug}`}>
+                        Read the case study
+                      </Link>
+                    )}
+                    {app.appStore && <AppStoreButton href={app.appStore} className="button button-ghost" />}
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -244,18 +220,7 @@ export default function Home() {
         </Section>
       </main>
 
-      <footer className="wrap footer">
-        <p className="footer-commit">
-          <span className="query-prompt" aria-hidden="true">
-            SQL&gt;
-          </span>{" "}
-          <code>
-            <span className="tok-keyword">COMMIT</span>;
-          </code>
-          <span className="footer-note">Commit complete.</span>
-        </p>
-        <p>© {new Date().getFullYear()} Seán Hogan</p>
-      </footer>
+      <Footer />
 
       <SqlTerminal />
     </>

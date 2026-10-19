@@ -62,8 +62,13 @@ export const TABLES: Table[] = [
   {
     name: "apps",
     about: "What I've shipped",
-    columns: ["name", "status", "stack"],
-    rows: apps.map((a) => [a.name, a.status === "live" ? "LIVE" : "BUILDING", a.stack.join(", ")]),
+    columns: ["name", "status", "website", "stack"],
+    rows: apps.map((a) => [
+      a.name,
+      a.status === "live" ? "LIVE" : "BUILDING",
+      a.website?.replace(/^https?:\/\/(www\.)?/, "") ?? "(null)",
+      a.stack.join(", "),
+    ]),
   },
   {
     name: "builds",

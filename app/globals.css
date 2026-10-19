@@ -1047,3 +1047,222 @@ code {
 .notfound p {
   font-size: 1.125rem;
 }
+
+/* App rows: icon, tagline, screenshots, actions */
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.app-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 22%;
+  flex: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+@media (min-width: 760px) {
+  .app-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+.app-icon-placeholder {
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: var(--deep-muted);
+  border: 2px dashed var(--deep-line);
+  box-shadow: none;
+}
+.app-name a {
+  color: inherit;
+}
+.app-tagline {
+  color: var(--deep-muted);
+  font-size: 0.9375rem;
+  margin-top: 0.3rem;
+}
+.shots {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--deep-line) transparent;
+}
+.shot {
+  flex: none;
+  scroll-snap-align: start;
+}
+.shot img {
+  display: block;
+  height: 15rem;
+  width: auto;
+}
+.shot-phone img {
+  border-radius: 1.1rem;
+  box-shadow: 0 0 0 1px var(--deep-line), 0 18px 30px -18px rgba(0, 0, 0, 0.6);
+}
+.shot-art {
+  background: #f1f5fb;
+  border-radius: 1.1rem;
+  padding: 0.75rem;
+}
+.shot-art img {
+  height: 13.5rem;
+}
+.app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+.button-light {
+  background: var(--tok-keyword);
+  border-color: var(--tok-keyword);
+  color: var(--deep);
+}
+.button-light:hover {
+  background: var(--deep-ink);
+  border-color: var(--deep-ink);
+  color: var(--deep);
+}
+.button-ghost {
+  border-color: var(--deep-line);
+  color: var(--deep-ink);
+}
+.button-ghost:hover {
+  background: var(--deep-line);
+  color: var(--deep-ink);
+}
+
+/* Case study pages */
+.case-hero {
+  padding-top: 2.5rem;
+  padding-bottom: 3.5rem;
+}
+@media (min-width: 980px) {
+  .case-hero {
+    padding-top: 3.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+.back-link {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-underline-offset: 4px;
+  margin-bottom: 2rem;
+}
+.case-id {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.case-icon {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 22%;
+  box-shadow: 0 16px 30px -16px rgba(11, 58, 44, 0.6);
+}
+.status-light {
+  color: var(--ink);
+}
+.status-light.status-live::before {
+  background: var(--gold);
+}
+.case-name {
+  margin-top: 1.25rem;
+  color: var(--green);
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+  font-weight: 800;
+  font-stretch: 82%;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+.case-tagline {
+  margin-top: 0.75rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+.case-summary {
+  max-width: 40rem;
+  margin-top: 1rem;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.case-facts {
+  display: grid;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 760px) {
+  .case-facts {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+.case-facts dt {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.case-facts dd {
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+.case-gallery-band {
+  padding: 3rem 0;
+}
+.case-gallery {
+  scroll-padding-inline: 1rem;
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--deep-line) transparent;
+}
+.case-gallery .shot img {
+  height: 26rem;
+}
+.case-gallery .shot-art img {
+  height: 24rem;
+}
+@media (max-width: 640px) {
+  .case-gallery .shot img {
+    height: 22rem;
+  }
+  .case-gallery .shot-art img {
+    height: 15rem;
+  }
+}
+.case-intro {
+  font-size: 1.125rem;
+  margin-bottom: 1.25rem;
+}
+.case-points {
+  margin-top: 0;
+  gap: 0.75rem;
+}
+.case-table tbody th {
+  white-space: normal;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.case-table tbody td {
+  color: var(--muted);
+}
+.case-end-actions {
+  margin-top: 2rem;
+}
