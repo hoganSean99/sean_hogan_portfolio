@@ -6,6 +6,7 @@ import { highlight } from "./Sql";
 import { ResultView } from "./SqlResult";
 
 const OPEN_EVENT = "open-sql-terminal";
+const MOBILE_QUERY = "(max-width: 759px)";
 
 export function openTerminal() {
   window.dispatchEvent(new Event(OPEN_EVENT));
@@ -47,6 +48,7 @@ export default function SqlTerminal() {
   const open = () => {
     const d = dialogRef.current;
     if (!d || d.open) return;
+    if (window.matchMedia(MOBILE_QUERY).matches) return; // the terminal is desktop-only
     d.showModal();
     // Focus synchronously, inside the tap that opened the terminal:
     // iOS only shows the keyboard for focus that happens during a user gesture.

@@ -1293,3 +1293,13 @@ html:has(.terminal[open]) {
 .console-chips .chip-join.is-active {
   color: var(--deep);
 }
+
+/* The interactive SQL (hero console and pop-up terminal) is desktop-only.
+   On phones the hero is just the name, photo and intro. */
+@media (max-width: 759px) {
+  .hero .console,
+  .terminal-fab,
+  .terminal {
+    display: none !important;
+  }
+}
