@@ -11,12 +11,6 @@ export const profile = {
   github: "https://github.com/hoganSean99",
 };
 
-export const facts = [
-  { label: "Now", value: "Oracle DBA at JRI America, Tralee" },
-  { label: "Experience", value: "6 years in production database operations" },
-  { label: "Shipped", value: "2 iOS apps, a third in development" },
-];
-
 export const work = [
   {
     role: "Oracle Database Administrator",
@@ -96,12 +90,19 @@ export const otherBuilds = [
   },
 ];
 
+// Shown as the output of DESCRIBE sean_hogan;
 export const skills = [
-  { group: "Databases", items: ["Oracle 11g, 12c, 19c", "SQL", "PostgreSQL", "Supabase"] },
-  { group: "Automation and operations", items: ["Python", "Bash", "Ansible", "Linux", "Rubrik backups", "GraphQL APIs"] },
-  { group: "App development", items: ["React Native", "Expo", "Swift and SwiftUI", "Next.js", "TypeScript"] },
-  { group: "AI tooling", items: ["Claude Code", "OpenAI API", "N8N workflows"] },
+  { name: "DATABASES", notNull: true, type: "Oracle 11g, 12c, 19c, SQL, PostgreSQL, Supabase" },
+  { name: "AUTOMATION", notNull: true, type: "Python, Bash, Ansible, Linux, Rubrik backups, GraphQL APIs" },
+  { name: "APP_DEVELOPMENT", notNull: false, type: "React Native, Expo, Swift and SwiftUI, Next.js, TypeScript" },
+  { name: "AI_TOOLING", notNull: false, type: "Claude Code, OpenAI API, N8N workflows" },
+  { name: "COFFEE", notNull: true, type: "French press, non-negotiable" },
 ];
 
-export const outside =
-  "Two All-Ireland medals with IT Tralee GAA in 2017. Away from the keyboard it's GAA, pets, gaming and a good cup of coffee.";
+// Shown as the result of SELECT * FROM life WHERE keyboard = 'OFF';
+export const life = [
+  { activity: "GAA", detail: "Two All-Ireland medals with IT Tralee in 2017" },
+  { activity: "PETS", detail: "Big fan. Hence Lost Paws and PawRota" },
+  { activity: "GAMING", detail: "When production lets me" },
+  { activity: "CODING", detail: "Yes, for fun as well. See above" },
+];

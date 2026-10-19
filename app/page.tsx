@@ -1,31 +1,32 @@
-import Image from "next/image";
-import {
-  apps,
-  education,
-  facts,
-  otherBuilds,
-  outside,
-  profile,
-  skills,
-  work,
-} from "@/lib/content";
+import { Query } from "@/components/Sql";
+import SqlConsole from "@/components/SqlConsole";
+import { apps, education, life, otherBuilds, profile, skills, work } from "@/lib/content";
 
 function Section({
   id,
   title,
+  query,
+  tone = "plain",
   children,
 }: {
   id: string;
   title: string;
+  query: string;
+  tone?: "plain" | "band";
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="section" aria-labelledby={`${id}-title`}>
-      <h2 id={`${id}-title`} className="section-title">
-        {title}
-      </h2>
-      <div className="section-body">{children}</div>
-    </section>
+    <div className={tone === "band" ? "band" : undefined}>
+      <section id={id} className="wrap section" aria-labelledby={`${id}-title`}>
+        <div className="section-head">
+          <h2 id={`${id}-title`} className="section-title">
+            {title}
+          </h2>
+          <Query>{query}</Query>
+        </div>
+        <div className="section-body">{children}</div>
+      </section>
+    </div>
   );
 }
 
@@ -36,6 +37,14 @@ function Stack({ items }: { items: string[] }) {
         <li key={item}>{item}</li>
       ))}
     </ul>
+  );
+}
+
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
   );
 }
 
@@ -61,170 +70,176 @@ export default function Home() {
       </header>
 
       <main id="main">
-        <div className="wrap">
-          <section id="top" className="hero" aria-label="Introduction">
-            <div className="hero-text">
-              <p className="hero-role">
-                {profile.role}, {profile.location}
-              </p>
-              <h1 className="hero-name">
-                <span>Seán</span>
-                <span>Hogan</span>
-              </h1>
-              <p className="hero-intro">{profile.intro}</p>
-              <div className="hero-actions">
-                <a className="button button-primary" href={`mailto:${profile.email}`}>
-                  Email me
-                </a>
-                <a className="button" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-                <a className="button" href={profile.github} target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-              </div>
+        <section id="top" className="wrap hero" aria-label="Introduction">
+          <div className="hero-text">
+            <p className="hero-role">
+              {profile.role}, {profile.location}
+            </p>
+            <h1 className="hero-name">
+              <span>Seán</span>
+              <span>Hogan</span>
+            </h1>
+            <p className="hero-intro">{profile.intro}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href={`mailto:${profile.email}`}>
+                Email me
+              </a>
+              <a className="button" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+              <a className="button" href={profile.github} target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
             </div>
-            <div className="hero-photo">
-              <Image
-                src="/sean.webp"
-                alt="Seán Hogan"
-                width={433}
-                height={433}
-                priority
-                sizes="(max-width: 760px) 160px, 300px"
-              />
-            </div>
-            <dl className="facts">
-              {facts.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </section>
+          </div>
+          <SqlConsole />
+        </section>
 
-          <Section id="work" title="Work">
-            {work.map((job) => (
-              <article key={job.org} className="job">
-                <header className="job-head">
-                  <h3>{job.role}</h3>
-                  <p className="job-meta">
-                    {job.org}, {job.place}
-                    <span className="job-period">{job.period}</span>
-                  </p>
-                </header>
-                <p className="job-summary">{job.summary}</p>
-                <ul className="job-points">
-                  {job.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-            <article className="job job-education">
+        <Section
+          id="work"
+          title="Work"
+          query="SELECT role, company, years FROM career ORDER BY start_date DESC;"
+        >
+          {work.map((job) => (
+            <article key={job.org} className="job">
               <header className="job-head">
-                <h3>{education.degree}</h3>
+                <h3>{job.role}</h3>
                 <p className="job-meta">
-                  {education.org}
-                  <span className="job-period">{education.period}</span>
+                  {job.org}, {job.place}
+                  <span className="job-period">{job.period}</span>
                 </p>
               </header>
+              <p className="job-summary">{job.summary}</p>
+              <ul className="job-points">
+                {job.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </article>
-          </Section>
+          ))}
+          <article className="job job-education">
+            <header className="job-head">
+              <h3>{education.degree}</h3>
+              <p className="job-meta">
+                {education.org}
+                <span className="job-period">{education.period}</span>
+              </p>
+            </header>
+          </article>
+        </Section>
 
-          <Section id="apps" title="Apps">
-            <p className="section-lede">
-              Products I&apos;ve designed, built and shipped on my own, from first sketch to App Store review.
-            </p>
-            <ul className="apps">
-              {apps.map((app) => (
-                <li key={app.name} className="app">
-                  <div className="app-head">
-                    <h3 className="app-name">
-                      {app.href ? (
-                        <a href={app.href} target="_blank" rel="noopener noreferrer">
-                          {app.name}
-                        </a>
-                      ) : (
-                        app.name
-                      )}
-                    </h3>
-                    <span className={`status status-${app.status}`}>
-                      {app.status === "live" ? "Live on the App Store" : "In development"}
-                    </span>
-                  </div>
-                  <p className="app-desc">{app.description}</p>
-                  <Stack items={app.stack} />
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="subhead">Other builds</h3>
-            <ul className="builds">
-              {otherBuilds.map((build) => (
-                <li key={build.name} className="build">
-                  <h4>
-                    {build.href ? (
-                      <a href={build.href} target="_blank" rel="noopener noreferrer">
-                        {build.name}
-                      </a>
-                    ) : (
-                      build.name
-                    )}
-                  </h4>
-                  <p>{build.description}</p>
-                  <Stack items={build.stack} />
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          <Section id="skills" title="Skills">
-            <div className="skills">
-              {skills.map((group) => (
-                <div key={group.group} className="skill-group">
-                  <h3>{group.group}</h3>
-                  <ul>
-                    {group.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+        <Section
+          id="apps"
+          title="Apps"
+          tone="band"
+          query="SELECT * FROM apps WHERE built_by = 'sean' ORDER BY shipped DESC;"
+        >
+          <p className="section-lede">
+            Products I&apos;ve designed, built and shipped on my own, from first sketch to App Store review.
+          </p>
+          <ul className="apps">
+            {apps.map((app) => (
+              <li key={app.name} className="app">
+                <div className="app-head">
+                  <h3 className="app-name">
+                    {app.href ? <ExternalLink href={app.href}>{app.name}</ExternalLink> : app.name}
+                  </h3>
+                  <span className={`status status-${app.status}`}>
+                    {app.status === "live" ? "Live on the App Store" : "In development"}
+                  </span>
                 </div>
+                <p className="app-desc">{app.description}</p>
+                <Stack items={app.stack} />
+              </li>
+            ))}
+          </ul>
+          <p className="result-count">{apps.length} rows selected.</p>
+
+          <h3 className="subhead">Other builds</h3>
+          <ul className="builds">
+            {otherBuilds.map((build) => (
+              <li key={build.name} className="build">
+                <h4>{build.href ? <ExternalLink href={build.href}>{build.name}</ExternalLink> : build.name}</h4>
+                <p>{build.description}</p>
+                <Stack items={build.stack} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section id="skills" title="Skills" query="DESCRIBE sean_hogan;">
+          <table className="sql-table describe">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Null?</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {skills.map((row) => (
+                <tr key={row.name}>
+                  <th scope="row">{row.name}</th>
+                  <td className="describe-null">{row.notNull ? "NOT NULL" : ""}</td>
+                  <td>{row.type}</td>
+                </tr>
               ))}
-            </div>
-          </Section>
+            </tbody>
+          </table>
+        </Section>
 
-          <Section id="outside" title="Outside work">
-            <p className="outside">{outside}</p>
-          </Section>
+        <Section id="outside" title="Outside work" query="SELECT * FROM life WHERE keyboard = 'OFF';">
+          <table className="sql-table life">
+            <thead>
+              <tr>
+                <th scope="col">Activity</th>
+                <th scope="col">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {life.map((row) => (
+                <tr key={row.activity}>
+                  <th scope="row">{row.activity}</th>
+                  <td>{row.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="result-count">{life.length} rows selected.</p>
+        </Section>
 
-          <Section id="contact" title="Contact">
-            <p className="contact-lead">
-              Email is the quickest way to reach me.
-            </p>
-            <a className="contact-email" href={`mailto:${profile.email}`}>
-              {profile.email}
-            </a>
-            <ul className="contact-links">
-              <li>
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href={profile.github} target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-              </li>
-              <li>{profile.location}</li>
-            </ul>
-          </Section>
-        </div>
+        <Section
+          id="contact"
+          title="Contact"
+          query="INSERT INTO inbox (sender, message) VALUES ('you', 'Hi Seán');"
+        >
+          <p className="contact-lead">Email is the quickest way to reach me.</p>
+          <a className="contact-email" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+          <ul className="contact-links">
+            <li>
+              <ExternalLink href={profile.linkedin}>LinkedIn</ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href={profile.github}>GitHub</ExternalLink>
+            </li>
+            <li>{profile.location}</li>
+          </ul>
+        </Section>
       </main>
 
-      <footer className="footer">
-        <div className="wrap">© {new Date().getFullYear()} Seán Hogan</div>
+      <footer className="wrap footer">
+        <p className="footer-commit">
+          <span className="query-prompt" aria-hidden="true">
+            SQL&gt;
+          </span>{" "}
+          <code>
+            <span className="tok-keyword">COMMIT</span>;
+          </code>
+          <span className="footer-note">Commit complete.</span>
+        </p>
+        <p>© {new Date().getFullYear()} Seán Hogan</p>
       </footer>
     </>
   );

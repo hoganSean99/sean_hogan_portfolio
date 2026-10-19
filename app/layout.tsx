@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource-variable/martian-mono/standard.css";
 import "./globals.css";
 
 const description =
